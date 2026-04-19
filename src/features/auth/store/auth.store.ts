@@ -1,12 +1,9 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { AuthUser } from "../types/auth.types";
 
 type AuthState = {
-  user: {
-    id: number;
-    name: string;
-    email: string;
-  } | null;
+  user: AuthUser | null;
   accessToken: string | null;
   refreshToken: string | null;
   isAuthenticated: boolean;
