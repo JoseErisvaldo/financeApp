@@ -1,7 +1,7 @@
 const navItems = [
   {
-    name: "Home",
-    to: "/",
+    name: "Dashboard",
+    to: "/dashboard",
   },
   {
     name: "Transações",

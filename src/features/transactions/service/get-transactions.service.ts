@@ -1,15 +1,5 @@
+import type { Transaction } from "../types/transaction.types";
 import { api } from "../../../shared/api/api";
-
-type Transaction = {
-  id: number;
-  title: string;
-  amount: string;
-  type: string;
-  category: string;
-  createdAt: string;
-  updatedAt: string;
-  userId: number;
-};
 
 type TransactionsApiResponse =
   | Transaction[]

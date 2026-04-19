@@ -1,69 +1,94 @@
+import { Badge } from "@/components/ui/badge";
+import { StateMessage } from "@/components/ui/state-message";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import useTransactionsHooks from "../hooks/use-transactions-hooks";
 
-type Transaction = {
-  id: number;
-  title: string;
-  amount: string;
-  type: string;
-  category: string;
-  createdAt: string;
-  updatedAt: string;
-  userId: number;
-};
-
 export default function TableTransactions() {
-  const { data = [] } = useTransactionsHooks();
+  const { data = [], isLoading, isError } = useTransactionsHooks();
+
+  if (isLoading) {
+    return (
+      <StateMessage
+        variant="loading"
+        title="Carregando transações"
+        description="Estamos buscando suas movimentações mais recentes."
+      />
+    );
+  }
+
+  if (isError) {
+    return (
+      <StateMessage
+        variant="error"
+        title="Erro ao carregar transações"
+        description="Não foi possível consultar a lista neste momento."
+      />
+    );
+  }
 
   return (
-    <div className="w-full max-w-4xl rounded-3xl bg-white/90 p-6 shadow-xl backdrop-blur-sm">
-      <div className="mb-4 flex items-center justify-between">
+    <div className="space-y-4">
+      <div className="flex items-center justify-between gap-3">
         <div>
-          <h2 className="text-2xl font-semibold text-slate-800">
-            Transactions
-          </h2>
-          <p className="text-sm text-slate-500">Recent transaction history</p>
+          <h2 className="text-xl font-semibold">Histórico recente</h2>
+          <p className="text-sm text-muted-foreground">
+            Consulte as movimentações mais recentes da sua conta.
+          </p>
         </div>
-        <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-medium text-amber-700">
-          {data.length} items
-        </span>
+
+        <Badge variant="secondary">{data.length} itens</Badge>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse overflow-hidden rounded-2xl">
-          <thead>
-            <tr className="bg-slate-100 text-left text-sm uppercase tracking-wide text-slate-600">
-              <th className="px-4 py-3">ID</th>
-              <th className="px-4 py-3">Title</th>
-              <th className="px-4 py-3">Amount</th>
-              <th className="px-4 py-3">Category</th>
-              <th className="px-4 py-3">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((transaction: Transaction) => (
-              <tr
-                key={transaction.id}
-                className="border-b border-slate-100 transition hover:bg-slate-50"
-              >
-                <td className="px-4 py-3 font-medium text-slate-700">
-                  #{transaction.id}
-                </td>
-                <td className="px-4 py-3 text-slate-700">
-                  {transaction.title}
-                </td>
-                <td className="px-4 py-3 font-semibold text-emerald-600">
-                  {transaction.amount}
-                </td>
-                <td className="px-4 py-3 text-slate-600">
-                  {transaction.category}
-                </td>
-                <td className="px-4 py-3 text-slate-500">
-                  {new Date(transaction.createdAt).toLocaleDateString()}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="rounded-lg border bg-card">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>ID</TableHead>
+              <TableHead>Título</TableHead>
+              <TableHead>Valor</TableHead>
+              <TableHead>Categoria</TableHead>
+              <TableHead>Data</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={5} className="p-4">
+                  <StateMessage
+                    variant="empty"
+                    title="Nenhuma transação encontrada"
+                    description="Adicione uma nova movimentação para começar a visualizar seus dados aqui."
+                  />
+                </TableCell>
+              </TableRow>
+            ) : (
+              data.map((transaction) => (
+                <TableRow key={transaction.id}>
+                  <TableCell className="font-medium">
+                    #{transaction.id}
+                  </TableCell>
+                  <TableCell>{transaction.title}</TableCell>
+                  <TableCell className="font-semibold text-green-900">
+                    {transaction.amount}
+                  </TableCell>
+                  <TableCell>{transaction.category}</TableCell>
+                  <TableCell>
+                    {new Date(transaction.createdAt).toLocaleDateString(
+                      "pt-BR",
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
       </div>
     </div>
   );

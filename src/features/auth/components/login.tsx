@@ -1,5 +1,16 @@
+import { Link } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import useLogin from "../hooks/use-login.hook";
-import "./login.css";
 
 export default function Login() {
   const { mutate, isPending, error } = useLogin();
@@ -25,64 +36,90 @@ export default function Login() {
     mutate({ email: normalizedEmail, password: normalizedPassword });
   };
 
-  if (isPending) {
-    return <p>Carregando...</p>;
-  }
-
   return (
-    <main className="login-page">
-      <section className="login-card">
-        <span className="login-badge">Area segura</span>
+    <main className="flex min-h-screen items-center justify-center px-4 py-10">
+      <Card className="w-full max-w-md border-green-900/10 shadow-lg shadow-green-900/5">
+        <CardHeader className="space-y-3">
+          <Badge className="w-fit bg-green-900 text-white hover:bg-green-800">
+            Área segura
+          </Badge>
 
-        <header className="login-header">
-          <h1>Entrar na conta</h1>
-          <p>
-            Acesse sua area administrativa com email e senha para continuar.
-          </p>
-        </header>
-
-        <form className="login-form" onSubmit={handleSubmit}>
-          <label className="login-field" htmlFor="email">
-            <span>Email</span>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              placeholder="seuemail@empresa.com"
-            />
-          </label>
-
-          <label className="login-field" htmlFor="password">
-            <span>Senha</span>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Digite sua senha"
-            />
-          </label>
-
-          <div className="login-row">
-            <label className="login-check" htmlFor="remember">
-              <input id="remember" type="checkbox" />
-              <span>Lembrar de mim</span>
-            </label>
-
-            <a href="/">Esqueci a senha</a>
+          <div className="space-y-1">
+            <CardTitle className="text-2xl">Entrar na conta</CardTitle>
+            <CardDescription>
+              Acesse sua área administrativa com email e senha para continuar.
+            </CardDescription>
           </div>
+        </CardHeader>
 
-          {error && (
-            <p className="login-error">Erro: Favor valide seus dados</p>
-          )}
-          <button className="login-button" type="submit">
-            Entrar
-          </button>
-        </form>
+        <CardContent>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            <div className="grid gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="seuemail@empresa.com"
+                disabled={isPending}
+              />
+            </div>
 
-        <p className="login-footer">
-          Ainda nao tem conta? <a href="/">Criar acesso</a>
-        </p>
-      </section>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Senha</Label>
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Digite sua senha"
+                disabled={isPending}
+              />
+            </div>
+
+            <div className="flex items-center justify-between gap-3 text-sm text-muted-foreground">
+              <label className="flex items-center gap-2" htmlFor="remember">
+                <input
+                  id="remember"
+                  type="checkbox"
+                  className="accent-green-900"
+                />
+                <span>Lembrar de mim</span>
+              </label>
+
+              <Link
+                to="/login"
+                className="font-medium text-green-900 hover:underline"
+              >
+                Esqueci a senha
+              </Link>
+            </div>
+
+            {error && (
+              <p className="text-sm font-medium text-destructive">
+                Erro: favor validar seus dados.
+              </p>
+            )}
+
+            <Button
+              type="submit"
+              className="w-full bg-green-900 text-white hover:bg-green-800"
+              disabled={isPending}
+            >
+              {isPending ? "Entrando..." : "Entrar"}
+            </Button>
+          </form>
+
+          <p className="mt-6 text-center text-sm text-muted-foreground">
+            Ainda não tem conta?{" "}
+            <Link
+              to="/login"
+              className="font-medium text-green-900 hover:underline"
+            >
+              Criar acesso
+            </Link>
+          </p>
+        </CardContent>
+      </Card>
     </main>
   );
 }
