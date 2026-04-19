@@ -1,4 +1,5 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import NavBar from "../components/nav-bar";
 import { useAuthStore } from "../features/auth/store/auth.store";
 
 export function PrivateRoute() {
@@ -9,5 +10,10 @@ export function PrivateRoute() {
     return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
-  return <Outlet />;
+  return (
+    <>
+      <NavBar />
+      <Outlet />
+    </>
+  );
 }

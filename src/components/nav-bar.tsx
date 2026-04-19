@@ -1,7 +1,10 @@
 import { Link } from "react-router";
 import navItems from "../constantes/nav-items";
+import { useAuthStore } from "../features/auth/store/auth.store";
 
 export default function NavBar() {
+  const logout = useAuthStore((state) => state.logout);
+
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex items-center justify-between">
@@ -14,6 +17,12 @@ export default function NavBar() {
               </span>
             </Link>
           ))}
+          <button
+            onClick={logout}
+            className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium cursor-pointer"
+          >
+            Sair
+          </button>
         </div>
       </div>
     </nav>
