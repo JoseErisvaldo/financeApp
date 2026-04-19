@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { PrivateRoute } from "./routes/private-routes.tsx";
 import { PublicRoute } from "./routes/public-routes.tsx";
+import NavBar from "./components/nav-bar.tsx";
 
 const App = lazy(() => import("./App.tsx"));
 const Transactions = lazy(
@@ -19,6 +20,7 @@ function GlobalFallback() {
 export function AppRouter() {
   return (
     <Suspense fallback={<GlobalFallback />}>
+      <NavBar />
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
 
