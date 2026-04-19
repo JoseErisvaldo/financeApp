@@ -8,7 +8,6 @@ export default function RouteFallback({
   return (
     <div className={fullPage ? "global-suspense" : "route-suspense"}>
       <div className="global-suspense__spinner" />
-      <p>Carregando...</p>
     </div>
   );
 }
