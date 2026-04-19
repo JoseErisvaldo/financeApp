@@ -37,14 +37,23 @@ a {
   color: inherit;
 }
 
-.global-suspense {
-  min-height: 100vh;
+.global-suspense,
+.route-suspense {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.9rem;
   color: #14213d;
+}
+
+.global-suspense {
+  min-height: 100vh;
+}
+
+.route-suspense {
+  width: 100%;
+  min-height: calc(100vh - 88px);
 }
 
 .global-suspense__spinner {

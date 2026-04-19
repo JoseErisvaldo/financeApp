@@ -13,7 +13,9 @@ export function PrivateRoute() {
   return (
     <>
       <NavBar />
-      <Outlet />
+      <main className="mx-auto w-full px-4 py-6">
+        <Outlet />
+      </main>
     </>
   );
 }

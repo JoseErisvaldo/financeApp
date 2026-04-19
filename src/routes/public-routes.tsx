@@ -8,5 +8,9 @@ export function PublicRoute() {
     return <Navigate to="/dashboard" replace />;
   }
 
-  return <Outlet />;
+  return (
+    <main className="mx-auto w-full">
+      <Outlet />
+    </main>
+  );
 }
