@@ -5,9 +5,6 @@
   line-height: 1.5;
   font-weight: 400;
   color: #14213d;
-  background:
-    radial-gradient(circle at top, rgba(252, 163, 17, 0.18), transparent 32%),
-    linear-gradient(135deg, #fffaf0 0%, #f4f7fb 45%, #eef2f7 100%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
