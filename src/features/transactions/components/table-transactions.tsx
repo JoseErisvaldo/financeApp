@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import useTransactionsHooks from "../hooks/use-transactions-hooks";
+import useTransactionsHooks from "../hooks/queries/use-transactions-hooks";
 
 export default function TableTransactions() {
   const { data = [], isLoading, isError } = useTransactionsHooks();

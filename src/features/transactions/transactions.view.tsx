@@ -1,5 +1,4 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,6 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import TableTransactions from "./components/table-transactions";
+import { DialogCreateTransaction } from "./components/dialog-transaction";
 
 export default function Transactions() {
   return (
@@ -26,9 +26,7 @@ export default function Transactions() {
             </div>
           </div>
 
-          <Button className="bg-green-900 text-white hover:bg-green-800">
-            Adicionar nova transação
-          </Button>
+          <DialogCreateTransaction />
         </CardHeader>
 
         <CardContent>

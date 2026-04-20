@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { StateMessage } from "@/components/ui/state-message";
-import useTransactionsHooks from "../transactions/hooks/use-transactions-hooks";
+import useTransactionsHooks from "../transactions/hooks/queries/use-transactions-hooks";
 
 export default function Dashboard() {
   const { data = [], isLoading, isError } = useTransactionsHooks();
