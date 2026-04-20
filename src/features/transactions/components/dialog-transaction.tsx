@@ -12,8 +12,8 @@ import {
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useDialogTransaction } from "../hooks/mutations/use-create-transaction-dialog";
 import { useEffect, useRef } from "react";
+import { useDialogTransaction } from "../hooks/use-form-dialog-transaction";
 
 export function DialogCreateTransaction() {
   const { handleSubmit, isPending, errors, isSuccess, reset } =
