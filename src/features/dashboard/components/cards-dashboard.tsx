@@ -6,8 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { TransactionsSkeleton } from "@/features/transactions/components/transactions-skeleton";
 import useTransactionsHooks from "@/features/transactions/queries/use-transactions-hooks";
+import { CardDashboardSkeleton } from "./card-dashboard-skeleton";
 
 function CardsDashboard() {
   const { data } = useTransactionsHooks();
@@ -52,7 +52,7 @@ function CardsDashboard() {
 export function CardsDashboardView() {
   return (
     <FeatureBoundary
-      fallback={<TransactionsSkeleton />}
+      fallback={<CardDashboardSkeleton />}
       errorFallback={ErrorPages}
     >
       <CardsDashboard />

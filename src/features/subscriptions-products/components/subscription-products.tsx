@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSubscriptonProducts } from "../queries/use-subscription";
+import { Link } from "react-router";
 
 export default function SubscriptionProducts() {
   const { data, isLoading } = useSubscriptonProducts();
@@ -65,7 +66,9 @@ export default function SubscriptionProducts() {
                     <li>✔ Acesso ilimitado</li>
                   </ul>
 
-                  <Button className="w-full">Assinar plano</Button>
+                  <Button className="w-full bg-green-600 hover:bg-green-500 rounded p-3">
+                    Assinar plano
+                  </Button>
                 </CardContent>
               </Card>
             );
@@ -76,7 +79,12 @@ export default function SubscriptionProducts() {
       <section className="container mx-auto px-6 py-20 text-center">
         <h2 className="text-3xl font-bold mb-4">Comece agora</h2>
 
-        <Button size="lg">Criar conta</Button>
+        <Link
+          to={"/login"}
+          className="bg-blue-600 hover:bg-blue-500 cursor-pointer p-3 rounded"
+        >
+          Criar conta
+        </Link>
       </section>
     </div>
   );
