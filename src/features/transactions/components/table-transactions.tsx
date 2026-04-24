@@ -11,36 +11,19 @@ import {
 } from "@/components/ui/table";
 import { useState } from "react";
 import useTransactionsHooks from "../queries/use-transactions-hooks";
+import { FeatureBoundary } from "@/components/layout/feature-boundary/feature-boundary";
+import { TransactionsSkeleton } from "./transactions-skeleton";
+import { ErrorPages } from "@/components/layout/error-pages/error-pages";
 
-export default function TableTransactions() {
+function Transactions() {
   const [page, setPage] = useState(1);
   const limit = 10;
-  const { data, isLoading, isError, isFetching } = useTransactionsHooks({
+  const { data, isFetching } = useTransactionsHooks({
     page,
     limit,
   });
   const transactions = data?.items ?? [];
   const pagination = data?.pagination;
-
-  if (isLoading) {
-    return (
-      <StateMessage
-        variant="loading"
-        title="Carregando transações"
-        description="Estamos buscando suas movimentações mais recentes."
-      />
-    );
-  }
-
-  if (isError) {
-    return (
-      <StateMessage
-        variant="error"
-        title="Erro ao carregar transações"
-        description="Não foi possível consultar a lista neste momento."
-      />
-    );
-  }
 
   return (
     <div className="space-y-4">
@@ -49,12 +32,6 @@ export default function TableTransactions() {
           {pagination?.totalItems ?? transactions.length} itens
         </Badge>
       </div>
-
-      {isFetching && !isLoading && (
-        <p className="text-sm text-muted-foreground">
-          Atualizando pagina {pagination?.page ?? page}...
-        </p>
-      )}
 
       <div className="rounded-lg border bg-card">
         <Table>
@@ -120,5 +97,16 @@ export default function TableTransactions() {
         </div>
       )}
     </div>
+  );
+}
+
+export function TableTransactions() {
+  return (
+    <FeatureBoundary
+      fallback={<TransactionsSkeleton />}
+      errorFallback={ErrorPages}
+    >
+      <Transactions />
+    </FeatureBoundary>
   );
 }

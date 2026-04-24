@@ -6,8 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import TableTransactions from "./components/table-transactions";
 import { DialogCreateTransaction } from "./components/dialog-transaction";
+import { TableTransactions } from "./components/table-transactions";
 
 export default function Transactions() {
   return (
